@@ -1,0 +1,9 @@
+export { default as BeforeAfter } from './BeforeAfter/BeforeAfter';
+export { default as Contact } from './Contact/Contact';
+export { default as Faq } from './Faq/Faq';
+export { default as Hero } from './Hero/Hero';
+export { default as PainPoints } from './PainPoints/PainPoints';
+export { default as Pricing } from './Pricing/Pricing';
+export { default as Process } from './Process/Process';
+export { default as Services } from './Services/Services';
+export { default as Testimonials } from './Testimonials/Testimonials';

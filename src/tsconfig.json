@@ -17,5 +17,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["main.tsx", "App.tsx", "components", "data", "vite.config.ts"]
+  "include": ["main.tsx", "App.tsx", "components", "data", "models", "pages", "providers", "test", "vite.config.ts"]
 }

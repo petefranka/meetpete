@@ -10,6 +10,7 @@ export const colors = {
   body: '#4A4640',
   muted: '#6B665F',
   faint: '#9A9187',
+  label: '#8C857B',
   border: '#E2DFD9',
   borderLight: '#EFECE6',
   input: '#E4E1DB',
