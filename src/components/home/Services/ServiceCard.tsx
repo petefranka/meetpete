@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Link as RouterLink } from 'react-router-dom';
 import type { Service } from '../../../models';
 import { useAiSeo } from '../../../providers/AiSeoProvider';
 import { colors } from '../../../theme';
@@ -78,8 +78,8 @@ export default function ServiceCard({ service }: { service: Service }) {
             <AiDemo />
             <Box sx={{ pt: '14px' }}>
               <Button
-                component={RouterLink}
-                to="/ai-seo"
+                component={Link}
+                href="/ai-seo"
                 onClick={resetAnalysis}
                 tabIndex={-1}
                 sx={{

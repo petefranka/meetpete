@@ -5,24 +5,25 @@ applyTo: "{src/**/*.{ts,tsx,js,jsx,css,scss,html},public/**/*.{html,css,js},ux-p
 
 # Meet Pete frontend
 
-The website is a React 19 + Vite + TypeScript (strict) single-page app rooted at `src/` — the `src/` folder is the Vite project root and app code lives directly in it, not in a nested `src/src/`. Scripts: `npm run dev`, `npm run build` (runs `tsc --noEmit` then bundles), `npm run preview`, `npm run typecheck`, `npm test` (one Vitest run) and `npm run test:watch`. Component tests use Vitest, jsdom and Testing Library. Prototype files follow `<page-name>.<viewport>.html`, using kebab-case page names and either `desktop` or `mobile` as the viewport. The four references in `ux-prototype/` — `home-page.desktop.html`, `home-page.mobile.html`, `ai-seo-page.desktop.html` and `ai-seo-page.mobile.html` — remain the design and copy source of truth: inspect the relevant desktop and mobile prototypes before implementing a screen, and treat them as references, not production source or proof that an integration works. Do not assume MSAL, i18next or a booking API exists.
+The website is a React 19 + Next.js 16 App Router + TypeScript (strict) application rooted at `src/` — the `src/` folder is the Next.js project root and app code lives directly in it, not in a nested `src/src/`. Scripts: `npm run dev`, `npm run build`, `npm start`, `npm run typecheck`, `npm test` (one Vitest run) and `npm run test:watch`. Component tests use Vitest, jsdom and Testing Library. Prototype files follow `<page-name>.<viewport>.html`, using kebab-case page names and either `desktop` or `mobile` as the viewport. The four references in `ux-prototype/` — `home-page.desktop.html`, `home-page.mobile.html`, `ai-seo-page.desktop.html` and `ai-seo-page.mobile.html` — remain the design and copy source of truth: inspect the relevant desktop and mobile prototypes before implementing a screen, and treat them as references, not production source or proof that an integration works. Do not assume MSAL, i18next or a booking API exists.
 
 ## Application architecture
 
-- `App.tsx` owns the React Router route table only. Route pages are lazy-loaded and live under `pages/<PageName>/`; do not put section markup, provider state or route-specific styling in the route table.
-- The canonical routes are `/` for the homepage and `/ai-seo` for the AI SEO experience. `/scan` and `/scan-my-site` are compatibility redirects only; do not add new links to those routes.
-- `main.tsx` composes application-wide providers: MUI theme, `BrowserRouter` and `AiSeoProvider`.
-- Cross-route hash scrolling is owned by `components/routing/RouteScrollManager/RouteScrollManager.tsx`. Use React Router links such as `to="/#contact"` rather than custom history manipulation or a replacement pathname router.
+- App Router route modules live under `app/`: `app/page.tsx` owns `/`, `app/ai-seo/page.tsx` owns `/ai-seo`, and `app/not-found.tsx` redirects unknown routes home. Keep route modules as small composition and workflow boundaries.
+- `/scan` and `/scan-my-site` are temporary redirects configured in `next.config.ts`; do not add new links to those paths.
+- `app/layout.tsx` owns document metadata, global CSS and the root HTML structure. `app/providers.tsx` is the client boundary for `AppRouterCacheProvider`, the MUI theme and `AiSeoProvider`.
+- Use `next/link` for internal navigation and `useRouter` from `next/navigation` only when navigation follows successful stateful work. Native hash links such as `href="/#contact"` handle cross-route section navigation; do not recreate a pathname router or global scroll manager.
 - Page chrome is shared through the `withPageLayout` HOC in `components/layout/PageShell/`. This HOC is for genuinely cross-cutting page chrome; do not introduce HOCs for ordinary composition or local state. Pages should compose feature sections and avoid reimplementing the header, bordered shell or footer.
-- `pages/HomePage/HomePage.tsx` composes the homepage sections in order. `pages/AiSeoPage/AiSeoPage.tsx` selects the idle/scanning/results presentation from `AiSeoProvider` state and configures the AI SEO header/footer treatment. Keep page modules as small composition and workflow boundaries.
+- `app/page.tsx` composes the homepage sections in order. `app/ai-seo/page.tsx` selects the idle/scanning/results presentation from `AiSeoProvider` state and configures the AI SEO header/footer treatment.
 - Homepage sections live under `components/home/<ComponentName>/<ComponentName>.tsx`.
 - AI SEO sections live under `components/ai-seo/<ComponentName>/<ComponentName>.tsx`. Keep implementation-only styles and helpers under `components/ai-seo/shared/`.
-- Shared visual components live under `components/common/`; shared site chrome lives under `components/layout/`; routing-specific components live under `components/routing/`.
+- Shared visual components live under `components/common/`; shared site chrome lives under `components/layout/`.
 - The `components/home/index.ts` and `components/ai-seo/index.ts` barrels expose page-level sections only. Add another barrel only when it represents a deliberate public import boundary. Keep private implementation components imported directly within their feature folder; do not export every file automatically.
 - Domain models and Zod schemas live under `models/`. Infer TypeScript types from their schemas rather than maintaining duplicate interfaces.
 - Canonical static copy and fixtures live under `data/` and must be parsed through the applicable Zod schema at the data boundary.
 - `AiSeoProvider` owns the entered website domain and the idle/scanning/results workflow. Components consume it through `useAiSeo`; do not pass the domain through route query parameters or recreate parallel workflow state in page components.
 - Keep route components, Providers and data models free of presentation styling. Keep feature-specific UI state, such as an accordion selection or mobile result tab, close to the component that owns it. A self-contained child disclosure should own its own open state rather than enlarging the parent coordinator.
+- Add `'use client'` only at modules that establish an interactive or browser-only boundary. Components imported beneath an existing client boundary do not need redundant directives. Server route modules may compose Client Components, but do not pass component functions or other non-serializable props across that boundary.
 
 ## Component ownership and decomposition
 
@@ -34,7 +35,7 @@ The website is a React 19 + Vite + TypeScript (strict) single-page app rooted at
   - `Contact/Contact.tsx` owns the sample calendar selection; `EmailAlternative` owns its disclosure and email-form fields.
   - `AiSeoResults/AiSeoResults.tsx` composes the report; `ResultsNavigation`, `CompetitorsCard` and `StickyResultsBar` own result navigation, comparison and fixed-summary behaviour.
   - `ActionPlan/ActionPlan.tsx` owns the active action; `ActionItemCard` and `QuickWinsSection` own individual disclosures and quick-win presentations.
-  - `Upsell/Upsell.tsx` owns the selected mobile plan; `PlanComparison` owns the Free/Pro comparison disclosure.
+  - `Upsell/Upsell.tsx` owns the selected mobile plan; `PlanComparison` owns the Do it yourself/Done for you comparison disclosure and its narrow-screen tabs.
 - Prefer canonical data arrays and `.map()` for repeated services, steps, plans, testimonials, FAQs, report areas and action items. Pass typed domain objects into private components instead of duplicating copy or maintaining parallel flags.
 - Review components that grow difficult to scan, but preserve cohesive layout code when extraction would only scatter related responsive styling. The goal is small, explicit ownership boundaries, not the maximum possible file count.
 - Pair every public parent component with a focused `ComponentName.test.tsx` under that component folder's `__tests__/` directory. When a new parent coordinator is added, its test is part of the same change; when one is renamed or moved, move its test with it.
@@ -43,6 +44,7 @@ The website is a React 19 + Vite + TypeScript (strict) single-page app rooted at
 ## UI library
 
 - Material UI (`@mui/material`) is the default UI library. Build sections from MUI primitives (`Box`, `Stack`, `Typography`, `Button`, `Collapse`) composed with `sx`, and reach for additional MUI components only when they earn their place.
+- Keep `AppRouterCacheProvider` at the root so Emotion styles are collected correctly during App Router server rendering. Shared `styled()` primitives and components that pass `next/link` through MUI's `component` prop must remain behind a client boundary.
 - Centralise the Meet Pete look in a single MUI theme (`theme.ts`): palette `#F4F3F0`, `#1A1918`, `#FF8AC4` and white; Archivo for display text and buttons, Instrument Sans for body copy; 2px dark borders, pill radii and offset shadows.
 - Override MUI defaults aggressively so the result matches the prototypes — the stock Material look (Roboto, indigo, flat dense controls) is off-brand. Keep global CSS (`index.css`) for resets, keyframes, scroll reveal and decorative effects that are not component structure.
 

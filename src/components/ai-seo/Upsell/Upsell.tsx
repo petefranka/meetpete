@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Link as RouterLink } from 'react-router-dom';
 import { doneForYouFeatures, proFeatures, proPrice } from '../../../data/content';
 import { colors } from '../../../theme';
 import { Highlight, PinkDot } from '../../common/BrandPrimitives/BrandPrimitives';
@@ -153,8 +153,8 @@ export default function Upsell() {
           </Typography>
           <FeatureList items={proFeatures} />
           <Button
-            component={RouterLink}
-            to="/#contact"
+            component={Link}
+            href="/#contact"
             sx={{
               width: '100%',
               mt: 'auto',
@@ -232,8 +232,8 @@ export default function Upsell() {
           <FeatureList items={doneForYouFeatures} pinkCheck />
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap', mt: 'auto', pt: '8px' }}>
             <Button
-              component={RouterLink}
-              to="/#contact"
+              component={Link}
+              href="/#contact"
               sx={{
                 borderRadius: 999,
                 bgcolor: 'primary.main',
@@ -251,8 +251,8 @@ export default function Upsell() {
               Book a free call
             </Button>
             <Button
-              component={RouterLink}
-              to="/#services"
+              component={Link}
+              href="/#services"
               sx={{
                 p: 0,
                 minWidth: 0,

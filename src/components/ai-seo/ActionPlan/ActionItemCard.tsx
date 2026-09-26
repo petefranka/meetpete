@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
-import { Link as RouterLink } from 'react-router-dom';
 import type { ActionItem, Priority } from '../../../models';
 import { colors } from '../../../theme';
 import { ARCHIVO, MONO, priorityStyles, scrollToId } from '../shared/aiSeoStyles';
@@ -98,8 +98,8 @@ function LockedFixTeaser() {
           Unlock with Pro
         </Button>
         <Button
-          component={RouterLink}
-          to="/#contact"
+          component={Link}
+          href="/#contact"
           sx={{ borderRadius: 999, px: '14px', py: '8px', fontSize: 13, color: 'text.primary', bgcolor: 'background.paper', border: `2px solid ${colors.ink}`, '&:hover': { bgcolor: colors.hoverPink } }}
         >
           Fix it for me

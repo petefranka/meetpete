@@ -1,8 +1,10 @@
+'use client';
+
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Link as RouterLink } from 'react-router-dom';
 import { contactEmail, navItems } from '../../../data/content';
 import { colors } from '../../../theme';
 import { Logo, PinkDot } from '../../common/BrandPrimitives/BrandPrimitives';
@@ -57,8 +59,8 @@ export default function Header({ variant = 'home' }: { variant?: 'home' | 'aiSeo
           }}
         >
           <Box
-            component={RouterLink}
-            to="/"
+            component={Link}
+            href="/"
             aria-label="Meet Pete home"
             sx={{
               display: 'inline-flex',
@@ -72,8 +74,8 @@ export default function Header({ variant = 'home' }: { variant?: 'home' | 'aiSeo
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: '8px', md: '10px' }, flex: 'none' }}>
             {variant === 'aiSeo' && (
               <Button
-                component={RouterLink}
-                to="/"
+                component={Link}
+                href="/"
                 sx={{
                   borderRadius: 999,
                   px: { xs: '14px', md: '20px' },
@@ -128,8 +130,8 @@ export default function Header({ variant = 'home' }: { variant?: 'home' | 'aiSeo
             </Button>
             )}
             <Button
-              component={variant === 'aiSeo' ? RouterLink : 'a'}
-              {...(variant === 'aiSeo' ? { to: '/#contact' } : { href: '#contact' })}
+              component={Link}
+              href={variant === 'aiSeo' ? '/#contact' : '#contact'}
               sx={{
                 borderRadius: 999,
                 px: { xs: '14px', md: '22px' },

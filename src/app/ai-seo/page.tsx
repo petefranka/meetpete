@@ -1,9 +1,11 @@
+'use client';
+
 import Box from '@mui/material/Box';
 import { AiSeoHero, AiSeoResults, SevenAreas, Upsell } from '../../components/ai-seo';
 import { withPageLayout } from '../../components/layout';
 import { useAiSeo } from '../../providers/AiSeoProvider';
 
-function AiSeoPageContent() {
+function AiSeoPage() {
   const { focusDomainInput, status } = useAiSeo();
 
   return (
@@ -28,7 +30,7 @@ function ResultsFooterSpacer() {
   ) : null;
 }
 
-export default withPageLayout(AiSeoPageContent, {
+export default withPageLayout(AiSeoPage, {
   headerVariant: 'aiSeo',
   AfterFooter: ResultsFooterSpacer,
 });

@@ -1,7 +1,9 @@
+'use client';
+
+import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Link as RouterLink } from 'react-router-dom';
 import { contactEmail, navItems } from '../../../data/content';
 import { colors } from '../../../theme';
 import { Logo } from '../../common/BrandPrimitives/BrandPrimitives';
@@ -99,8 +101,8 @@ export default function Footer() {
               A website that wins you work, and AI search that sends customers its way. No jargon, no hard sell.
             </Typography>
             <Button
-              component={RouterLink}
-              to="/#contact"
+              component={Link}
+              href="/#contact"
               sx={{
                 alignSelf: 'flex-start',
                 borderRadius: 999,
@@ -135,7 +137,7 @@ export default function Footer() {
           >
             <Column title="Explore">
               {navItems.map((item) => (
-                <Box key={item.id} component={RouterLink} to={`/#${item.id}`} sx={columnLinkSx}>
+                <Box key={item.id} component={Link} href={`/#${item.id}`} sx={columnLinkSx}>
                   {item.label}
                 </Box>
               ))}
@@ -143,7 +145,7 @@ export default function Footer() {
             <Column title="Let's Chat">
               {chatLinks.map((link) =>
                 link.href.startsWith('/') ? (
-                  <Box key={link.label} component={RouterLink} to={link.href} sx={columnLinkSx}>
+                  <Box key={link.label} component={Link} href={link.href} sx={columnLinkSx}>
                     {link.label}
                   </Box>
                 ) : (

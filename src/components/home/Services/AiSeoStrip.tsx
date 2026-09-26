@@ -1,14 +1,15 @@
 import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useAiSeo } from '../../../providers/AiSeoProvider';
 import { colors } from '../../../theme';
 
 export default function AiSeoStrip() {
   const [domain, setDomain] = useState('');
-  const navigate = useNavigate();
+  const router = useRouter();
   const { resetAnalysis, startAnalysis } = useAiSeo();
 
   return (
@@ -33,8 +34,8 @@ export default function AiSeoStrip() {
         </Typography>
       </Box>
       <Button
-        component={RouterLink}
-        to="/ai-seo"
+        component={Link}
+        href="/ai-seo"
         onClick={resetAnalysis}
         sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'center', borderRadius: '10px', py: '15px', fontSize: 16, color: 'primary.contrastText', bgcolor: 'primary.main', '&:hover': { bgcolor: '#3A3733' } }}
       >
@@ -45,7 +46,7 @@ export default function AiSeoStrip() {
         role="search"
         onSubmit={(event: React.FormEvent) => {
           event.preventDefault();
-          if (startAnalysis(domain)) navigate('/ai-seo');
+          if (startAnalysis(domain)) router.push('/ai-seo');
         }}
         sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: '8px', bgcolor: 'background.paper', border: `2px solid ${colors.ink}`, borderRadius: '14px', boxShadow: `5px 5px 0 ${colors.pink}`, pl: '18px', pr: '6px', py: '6px' }}
       >

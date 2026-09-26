@@ -5,7 +5,7 @@ applyTo: "{src/**/*,public/**/*}"
 
 # External integrations and content
 
-The current workspace has static desktop and mobile HTML references, not a deployed application, authentication system, booking backend or configured integrations. Do not carry over unrelated tenancy, identity, hosting or cloud dependencies.
+The workspace has a Next.js frontend and static desktop/mobile design references, but no authentication system, booking backend or configured third-party integrations. Do not introduce unrelated tenancy, identity, hosting or cloud dependencies.
 
 - The primary "Book a free call" links lead to `#contact`. The prototype shows a date/time selector and a `mailto:hello@meetpete.com` "Confirm" link; it does **not** reserve an appointment. Do not display a successful booking or send a calendar invitation without a working, approved booking integration.
 - When adding live scheduling, obtain dates, time zones and availability from the provider; handle expired slots, failure, loading and confirmation explicitly. Never hardcode the prototype's October 2026 calendar or pretend its sample times are live.

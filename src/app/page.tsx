@@ -8,10 +8,10 @@ import {
   Process,
   Services,
   Testimonials,
-} from '../../components/home';
-import { withPageLayout } from '../../components/layout';
+} from '../components/home';
+import { withPageLayout } from '../components/layout';
 
-function HomePageContent() {
+function HomePage() {
   return (
     <main>
       <Hero />
@@ -27,4 +27,4 @@ function HomePageContent() {
   );
 }
 
-export default withPageLayout(HomePageContent);
+export default withPageLayout(HomePage);
