@@ -15,4 +15,19 @@ describe('Services', () => {
     await user.click(aiSeoTab);
     expect(aiSeoTab).toHaveAttribute('aria-selected', 'true');
   });
+
+  it('shows an error instead of navigating for an invalid website address', async () => {
+    const user = userEvent.setup();
+    renderWithApp(<Services />);
+    const input = screen.getByRole('textbox', { name: 'Website address' });
+
+    await user.type(input, 'definitely not a domain');
+    await user.click(screen.getByRole('button', { name: /Scan my site/i }));
+
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    expect(input).toHaveFocus();
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'Enter a valid website address, such as yourbusiness.co.uk.',
+    );
+  });
 });

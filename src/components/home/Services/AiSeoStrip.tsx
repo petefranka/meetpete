@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
@@ -8,9 +7,8 @@ import { useAiSeo } from '../../../providers/AiSeoProvider';
 import { colors } from '../../../theme';
 
 export default function AiSeoStrip() {
-  const [domain, setDomain] = useState('');
   const router = useRouter();
-  const { resetAnalysis, startAnalysis } = useAiSeo();
+  const { domain, inputRef, resetAnalysis, setDomain, startAnalysis, validationError } = useAiSeo();
 
   return (
     <Box
@@ -44,26 +42,54 @@ export default function AiSeoStrip() {
       <Box
         component="form"
         role="search"
+        noValidate
         onSubmit={(event: React.FormEvent) => {
           event.preventDefault();
           if (startAnalysis(domain)) router.push('/ai-seo');
         }}
-        sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: '8px', bgcolor: 'background.paper', border: `2px solid ${colors.ink}`, borderRadius: '14px', boxShadow: `5px 5px 0 ${colors.pink}`, pl: '18px', pr: '6px', py: '6px' }}
+        sx={{
+          display: { xs: 'none', md: 'grid' },
+          gridTemplateColumns: 'auto minmax(0, 1fr) auto',
+          alignItems: 'center',
+          gap: '8px',
+          bgcolor: 'background.paper',
+          border: `2px solid ${validationError ? '#A32620' : colors.ink}`,
+          borderRadius: '14px',
+          boxShadow: `5px 5px 0 ${colors.pink}`,
+          pl: '18px',
+          pr: '6px',
+          py: '6px',
+        }}
       >
         <Typography component="span" sx={{ fontSize: 15, color: colors.faint, flex: 'none' }}>
           https://
         </Typography>
         <Box
           component="input"
+          ref={inputRef}
           aria-label="Website address"
           placeholder="yourbusiness.co.uk"
           value={domain}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDomain(event.target.value)}
+          aria-invalid={Boolean(validationError)}
+          aria-describedby={validationError ? 'home-domain-error' : undefined}
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
           sx={{ flex: 1, minWidth: 0, border: 'none', outline: 'none', bgcolor: 'transparent', font: 'inherit', fontSize: 15, color: 'text.primary', '&::placeholder': { color: colors.faint } }}
         />
         <Button type="submit" sx={{ flex: 'none', borderRadius: '10px', px: { xs: '16px', md: '24px' }, py: '12px', fontSize: 15, color: 'primary.contrastText', bgcolor: 'primary.main', '&:hover': { bgcolor: '#3A3733' } }}>
           Scan my site →
         </Button>
+        {validationError && (
+          <Typography
+            id="home-domain-error"
+            role="alert"
+            sx={{ gridColumn: '1 / -1', pb: '5px', fontSize: 14, color: '#A32620' }}
+          >
+            {validationError}
+          </Typography>
+        )}
       </Box>
     </Box>
   );

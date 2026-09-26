@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { aiAnswer, aiQuestion, chatBooked, chatDemo } from '../../../data/content';
 import { colors } from '../../../theme';
-import { useLoopStep } from './useLoopStep';
+import { useRevealStep } from './useRevealStep';
 
 function TypingDots({ dark = false }: { dark?: boolean }) {
   return (
@@ -26,7 +26,7 @@ function TypingDots({ dark = false }: { dark?: boolean }) {
             height: 5,
             borderRadius: '50%',
             bgcolor: dark ? colors.bg : colors.faint,
-            animation: 'pmBlink 1s infinite',
+            animation: 'pmBlink 0.8s ease-in-out 2',
             animationDelay: `${index * 0.15}s`,
             '@keyframes pmBlink': {
               '0%, 100%': { opacity: 0.3 },
@@ -49,7 +49,7 @@ const bubbleSx = {
 } as const;
 
 export function ChatDemo() {
-  const step = useLoopStep(7, 1100);
+  const step = useRevealStep(7, 1100);
   const show = (from: number) => step >= from;
 
   return (
@@ -57,41 +57,69 @@ export function ChatDemo() {
       <Box sx={{ ...bubbleSx, alignSelf: 'flex-start', bgcolor: 'background.paper', borderRadius: '16px 16px 16px 4px', opacity: show(0) ? 1 : 0, transform: show(0) ? 'none' : 'translateY(6px)' }}>
         {chatDemo[0].text}
       </Box>
-      {step === 1 && <TypingDots dark />}
-      <Box sx={{ ...bubbleSx, alignSelf: 'flex-end', bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: '16px 16px 4px 16px', opacity: show(2) ? 1 : 0, transform: show(2) ? 'none' : 'translateY(6px)', visibility: step === 1 ? 'hidden' : 'visible' }}>
-        {chatDemo[1].text}
+      <Box sx={{ position: 'relative', alignSelf: 'flex-end', maxWidth: '86%' }}>
+        <Box sx={{ ...bubbleSx, maxWidth: 'none', bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: '16px 16px 4px 16px', opacity: show(2) ? 1 : 0, transform: show(2) ? 'none' : 'translateY(6px)' }}>
+          {chatDemo[1].text}
+        </Box>
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-start',
+            opacity: step === 1 ? 1 : 0,
+            pointerEvents: 'none',
+          }}
+        >
+          <TypingDots dark />
+        </Box>
       </Box>
       <Box sx={{ ...bubbleSx, alignSelf: 'flex-start', bgcolor: 'background.paper', borderRadius: '16px 16px 16px 4px', opacity: show(3) ? 1 : 0, transform: show(3) ? 'none' : 'translateY(6px)' }}>
         {chatDemo[2].text}
       </Box>
-      {step === 4 && <TypingDots dark />}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', opacity: show(5) ? 1 : 0, transform: show(5) ? 'none' : 'translateY(6px)', transition: 'opacity 0.3s, transform 0.3s', visibility: step === 4 ? 'hidden' : 'visible' }}>
-        <Typography
-          component="span"
+      <Box sx={{ position: 'relative' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', opacity: show(5) ? 1 : 0, transform: show(5) ? 'none' : 'translateY(6px)', transition: 'opacity 0.3s, transform 0.3s' }}>
+          <Typography
+            component="span"
+            sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '7px',
+              bgcolor: 'background.paper',
+              border: `1.5px solid ${colors.ink}`,
+              borderRadius: 999,
+              px: '13px',
+              py: '7px',
+              fontFamily: "'Archivo', sans-serif",
+              fontWeight: 700,
+              fontSize: 13,
+            }}
+          >
+            <Box component="span" aria-hidden sx={{ color: 'secondary.main', WebkitTextStroke: `0.8px ${colors.ink}` }}>✓</Box>
+            {chatBooked}
+          </Typography>
+        </Box>
+        <Box
           sx={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '7px',
-            bgcolor: 'background.paper',
-            border: `1.5px solid ${colors.ink}`,
-            borderRadius: 999,
-            px: '13px',
-            py: '7px',
-            fontFamily: "'Archivo', sans-serif",
-            fontWeight: 700,
-            fontSize: 13,
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-start',
+            opacity: step === 4 ? 1 : 0,
+            pointerEvents: 'none',
           }}
         >
-          <Box component="span" aria-hidden sx={{ color: 'secondary.main', WebkitTextStroke: `0.8px ${colors.ink}` }}>✓</Box>
-          {chatBooked}
-        </Typography>
+          <TypingDots dark />
+        </Box>
       </Box>
     </Box>
   );
 }
 
 export function AiDemo() {
-  const step = useLoopStep(5, 1300);
+  const step = useRevealStep(5, 1300);
   const show = (from: number) => step >= from;
 
   return (

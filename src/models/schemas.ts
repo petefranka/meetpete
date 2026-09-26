@@ -1,10 +1,24 @@
 import { z } from 'zod';
 
+const invalidWebsiteAddressMessage = 'Enter a valid website address, such as yourbusiness.co.uk.';
+
 export const websiteDomainSchema = z
   .string()
   .trim()
   .min(1, 'Enter your website address.')
-  .transform((value) => value.replace(/^https?:\/\//i, '').replace(/\/.*$/, ''));
+  .transform((value) => (/^[a-z][a-z\d+.-]*:\/\//i.test(value) ? value : `https://${value}`))
+  .pipe(
+    z.url({
+      protocol: z.regexes.httpProtocol,
+      hostname: z.regexes.domain,
+      error: invalidWebsiteAddressMessage,
+    }),
+  )
+  .transform((value) => new URL(value))
+  .refine((url) => {
+    return !url.username && !url.password;
+  }, invalidWebsiteAddressMessage)
+  .transform((url) => url.hostname.toLowerCase());
 
 export const navItemSchema = z.object({
   id: z.string().min(1),

@@ -16,7 +16,7 @@ export {
   serviceSchema,
   testimonialSchema,
   websiteDomainSchema,
-} from './contentModels';
+} from './schemas';
 
 export type {
   ActionItem,
@@ -34,4 +34,4 @@ export type {
   QuickWin,
   Service,
   Testimonial,
-} from './contentModels';
+} from './schemas';

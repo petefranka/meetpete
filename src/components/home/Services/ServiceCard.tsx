@@ -22,6 +22,8 @@ export default function ServiceCard({ service }: { service: Service }) {
         display: 'flex',
         flexDirection: 'column',
         gap: { xs: '18px', md: '22px' },
+        height: { lg: '100%' },
+        boxSizing: 'border-box',
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', md: 'center' }, gap: { xs: '10px', md: '16px' } }}>
@@ -100,7 +102,7 @@ export default function ServiceCard({ service }: { service: Service }) {
         )}
       </Box>
 
-      <Box component="ul" sx={{ m: 0, p: 0, listStyle: 'none' }}>
+      <Box component="ul" sx={{ m: 0, mt: 'auto', p: 0, listStyle: 'none' }}>
         {service.features.map((feature) => (
           <Box component="li" key={feature} sx={{ display: 'flex', alignItems: 'center', gap: '12px', py: '12px', borderTop: `1px solid ${colors.borderLight}`, fontSize: 15 }}>
             <Box component="span" aria-hidden sx={{ flex: 'none', width: 20, height: 20, borderRadius: '50%', bgcolor: 'primary.main', color: 'primary.contrastText', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 10 }}>
@@ -111,7 +113,7 @@ export default function ServiceCard({ service }: { service: Service }) {
         ))}
       </Box>
 
-      <Box sx={{ mt: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
         <Typography sx={{ fontSize: 14, color: colors.muted }}>{service.footer}</Typography>
         <Button component="a" href="#contact" sx={{ borderRadius: 999, px: '20px', py: '10px', fontSize: 15, color: 'text.primary', bgcolor: 'background.paper', border: `2px solid ${colors.ink}`, boxShadow: `3px 3px 0 ${colors.ink}`, gap: '10px', '&:hover': { bgcolor: colors.hoverPink } }}>
           <PinkDot size={8} />

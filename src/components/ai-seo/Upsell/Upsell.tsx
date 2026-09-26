@@ -118,7 +118,15 @@ export default function Upsell() {
         ))}
       </Box>
 
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: { xs: '28px', md: '28px' }, pt: '14px' }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+          alignItems: { md: 'stretch' },
+          gap: { xs: '28px', md: '28px' },
+          pt: '14px',
+        }}
+      >
         {/* Pro — do it yourself */}
         <Box
           sx={{
@@ -131,6 +139,7 @@ export default function Upsell() {
             flexDirection: 'column',
             gap: { xs: '22px', md: '16px' },
             alignItems: 'flex-start',
+            height: { md: '100%' },
           }}
         >
           <Typography
@@ -186,6 +195,7 @@ export default function Upsell() {
             flexDirection: 'column',
             gap: { xs: '22px', md: '16px' },
             alignItems: 'flex-start',
+            height: { md: '100%' },
           }}
         >
           <Typography

@@ -144,6 +144,7 @@ export default function AiSeoHero() {
           <Box
             component="form"
             role="search"
+            noValidate
             onSubmit={submit}
             sx={{
               width: '100%',
@@ -175,6 +176,9 @@ export default function AiSeoHero() {
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setDomain(e.target.value)}
                 aria-invalid={Boolean(validationError)}
                 aria-describedby={validationError ? 'domain-error' : undefined}
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 sx={{
                   flex: 1,
                   minWidth: 0,
