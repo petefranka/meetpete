@@ -6,8 +6,10 @@ Meet Pete helps small businesses use AI without jargon, fuss or a hard sell. The
 
 The source of truth for the current experience is:
 
-- `ux-prototype/Meet Pete Desktop.html`
-- `ux-prototype/Meet Pete Mobile.html`
+- `ux-prototype/home-page.desktop.html`
+- `ux-prototype/home-page.mobile.html`
+- `ux-prototype/ai-seo-page.desktop.html`
+- `ux-prototype/ai-seo-page.mobile.html`
 
 Open and inspect both rendered prototypes before making design, layout, interaction or copy changes. Treat them as design references rather than production code.
 
