@@ -1,0 +1,284 @@
+{
+  "phase": "001",
+  "baseBranch": "main",
+  "baseSha": "0f0ece2a879d25055c1337846f97eb7ee1450471",
+  "finalSha": "0f0ece2a879d25055c1337846f97eb7ee1450471",
+  "diffRange": "0f0ece2a879d25055c1337846f97eb7ee1450471..0f0ece2a879d25055c1337846f97eb7ee1450471",
+  "manifestPath": "docs/plan/artefacts/parallelisation/phase-001-manifest.json",
+  "startedAt": "2026-09-27T14:21:29Z",
+  "updatedAt": "2026-09-27T14:24:33Z",
+  "steps": [
+    {
+      "id": "001-0",
+      "title": "setup-client-boundary",
+      "status": "failed",
+      "dependsOn": [],
+      "retries": 2,
+      "track": "mixed",
+      "summaryPath": null,
+      "evidencePath": null,
+      "narrative": null,
+      "changedFiles": [],
+      "commit": null,
+      "completionAudit": "failed",
+      "acceptanceCriteria": "failed",
+      "implementationSteps": "failed",
+      "tests": "skipped",
+      "lint": "skipped",
+      "buildOrTypecheck": "skipped",
+      "notes": "Global Copilot CLI 1.0.88 is installed, but the user-authorized attempt was denied by organization Copilot policy before implementation began."
+    },
+    {
+      "id": "001-1",
+      "title": "wire-contracts",
+      "status": "blocked",
+      "dependsOn": [
+        "001-0"
+      ],
+      "retries": 0,
+      "track": "mixed",
+      "summaryPath": null,
+      "evidencePath": null,
+      "narrative": null,
+      "changedFiles": [],
+      "commit": null,
+      "completionAudit": "pending",
+      "acceptanceCriteria": "pending",
+      "implementationSteps": "pending",
+      "tests": "pending",
+      "lint": "pending",
+      "buildOrTypecheck": "pending",
+      "notes": "Blocked because dependency 001-0 could not execute under the organization Copilot policy."
+    },
+    {
+      "id": "001-2",
+      "title": "client-construction",
+      "status": "blocked",
+      "dependsOn": [
+        "001-1"
+      ],
+      "retries": 0,
+      "track": "mixed",
+      "summaryPath": null,
+      "evidencePath": null,
+      "narrative": null,
+      "changedFiles": [],
+      "commit": null,
+      "completionAudit": "pending",
+      "acceptanceCriteria": "pending",
+      "implementationSteps": "pending",
+      "tests": "pending",
+      "lint": "pending",
+      "buildOrTypecheck": "pending",
+      "notes": "Blocked because dependency 001-0 could not execute under the organization Copilot policy."
+    },
+    {
+      "id": "001-3",
+      "title": "json-operations",
+      "status": "blocked",
+      "dependsOn": [
+        "001-2"
+      ],
+      "retries": 0,
+      "track": "mixed",
+      "summaryPath": null,
+      "evidencePath": null,
+      "narrative": null,
+      "changedFiles": [],
+      "commit": null,
+      "completionAudit": "pending",
+      "acceptanceCriteria": "pending",
+      "implementationSteps": "pending",
+      "tests": "pending",
+      "lint": "pending",
+      "buildOrTypecheck": "pending",
+      "notes": "Blocked because dependency 001-0 could not execute under the organization Copilot policy."
+    },
+    {
+      "id": "001-4",
+      "title": "failure-classification",
+      "status": "blocked",
+      "dependsOn": [
+        "001-3"
+      ],
+      "retries": 0,
+      "track": "mixed",
+      "summaryPath": null,
+      "evidencePath": null,
+      "narrative": null,
+      "changedFiles": [],
+      "commit": null,
+      "completionAudit": "pending",
+      "acceptanceCriteria": "pending",
+      "implementationSteps": "pending",
+      "tests": "pending",
+      "lint": "pending",
+      "buildOrTypecheck": "pending",
+      "notes": "Blocked because dependency 001-0 could not execute under the organization Copilot policy."
+    },
+    {
+      "id": "001-5",
+      "title": "cancellation-isolation",
+      "status": "blocked",
+      "dependsOn": [
+        "001-4"
+      ],
+      "retries": 0,
+      "track": "mixed",
+      "summaryPath": null,
+      "evidencePath": null,
+      "narrative": null,
+      "changedFiles": [],
+      "commit": null,
+      "completionAudit": "pending",
+      "acceptanceCriteria": "pending",
+      "implementationSteps": "pending",
+      "tests": "pending",
+      "lint": "pending",
+      "buildOrTypecheck": "pending",
+      "notes": "Blocked because dependency 001-0 could not execute under the organization Copilot policy."
+    }
+  ],
+  "waves": [
+    {
+      "index": 0,
+      "status": "unstable",
+      "stepIds": [
+        "001-0"
+      ],
+      "tests": "skipped",
+      "lint": "skipped",
+      "integrationNotes": "No implementation ran; global Copilot CLI access was denied by organization policy."
+    },
+    {
+      "index": 1,
+      "status": "blocked",
+      "stepIds": [
+        "001-1"
+      ],
+      "tests": "pending",
+      "lint": "pending",
+      "integrationNotes": "Blocked by failed dependency 001-0."
+    },
+    {
+      "index": 2,
+      "status": "blocked",
+      "stepIds": [
+        "001-2"
+      ],
+      "tests": "pending",
+      "lint": "pending",
+      "integrationNotes": "Blocked by failed dependency 001-0."
+    },
+    {
+      "index": 3,
+      "status": "blocked",
+      "stepIds": [
+        "001-3"
+      ],
+      "tests": "pending",
+      "lint": "pending",
+      "integrationNotes": "Blocked by failed dependency 001-0."
+    },
+    {
+      "index": 4,
+      "status": "blocked",
+      "stepIds": [
+        "001-4"
+      ],
+      "tests": "pending",
+      "lint": "pending",
+      "integrationNotes": "Blocked by failed dependency 001-0."
+    },
+    {
+      "index": 5,
+      "status": "blocked",
+      "stepIds": [
+        "001-5"
+      ],
+      "tests": "pending",
+      "lint": "pending",
+      "integrationNotes": "Blocked by failed dependency 001-0."
+    }
+  ],
+  "phaseChecks": {
+    "tests": "skipped",
+    "lint": "skipped",
+    "build": "skipped"
+  },
+  "commits": [],
+  "reviewItems": [],
+  "executionDiagnostics": [
+    {
+      "dedupeKey": "copilot-cli-missing:001-0",
+      "source": "orchestrator",
+      "sourceId": "001-0",
+      "waveIndex": 0,
+      "type": "transient-failure",
+      "summary": "The first Wave 0 process could not start because the Copilot CLI executable was missing.",
+      "detail": "No product files changed; installing the official CLI before the one allowed process retry.",
+      "files": []
+    },
+    {
+      "dedupeKey": "copilot-cli-global-install-permission",
+      "source": "orchestrator",
+      "sourceId": "001-0",
+      "waveIndex": 0,
+      "type": "transient-failure",
+      "summary": "Global Copilot CLI installation was denied by /usr/local permissions.",
+      "detail": "The CLI will be installed in the private session tools directory instead; the repository is unchanged.",
+      "files": []
+    },
+    {
+      "dedupeKey": "copilot-cli-policy-denial:001-0",
+      "source": "orchestrator",
+      "sourceId": "001-0",
+      "waveIndex": 0,
+      "type": "transient-failure",
+      "summary": "The Wave 0 retry was denied by the organization Copilot policy before implementation began.",
+      "detail": "Request FD41:13905D:4B8B75:69F5A8:6AB92697. No product files changed; dependent waves were blocked according to the retry policy.",
+      "files": []
+    },
+    {
+      "dedupeKey": "failed-step-rescope:001-0",
+      "source": "decomposer",
+      "sourceId": "001-0",
+      "waveIndex": 0,
+      "type": "verification",
+      "summary": "Re-scoping cannot address the execution-policy failure.",
+      "detail": "The setup step is already minimal; recovery requires policy enablement or a separately approved execution path.",
+      "files": [
+        "docs/plan/steps/001-external-api-client/001-0-setup-client-boundary.md"
+      ]
+    },
+    {
+      "dedupeKey": "user-authorized-retry:001-0",
+      "source": "orchestrator",
+      "sourceId": "001-0",
+      "waveIndex": 0,
+      "type": "retry",
+      "summary": "The user installed the global Copilot CLI and explicitly requested another Wave 0 attempt.",
+      "detail": "Resuming from the unchanged planning baseline with no prior product changes.",
+      "files": []
+    },
+    {
+      "dedupeKey": "copilot-cli-policy-denial-global:001-0",
+      "source": "orchestrator",
+      "sourceId": "001-0",
+      "waveIndex": 0,
+      "type": "transient-failure",
+      "summary": "The user-authorized run with global Copilot CLI 1.0.88 was denied by organization policy.",
+      "detail": "Request FD54:3E622C:489531:67520F:6AB92719. The process exited before implementation and no product files changed.",
+      "files": []
+    }
+  ],
+  "diffReviewStatus": "skipped",
+  "simplificationStatus": "skipped",
+  "review": {
+    "status": "skipped",
+    "guidePath": "logs/orchestration/phase-001/review-guide.md",
+    "generatedAt": null,
+    "finalSha": "0f0ece2a879d25055c1337846f97eb7ee1450471",
+    "notes": "No implementation diff exists because Wave 0 remains blocked by organization Copilot policy."
+  }
+}
