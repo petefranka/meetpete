@@ -1,0 +1,147 @@
+{
+  "phase": "001",
+  "baseBranch": "main",
+  "maxParallel": 5,
+  "retry": {
+    "maxAttempts": 2,
+    "backoffSeconds": 30
+  },
+  "verification": {
+    "step": [
+      "cd src && npm run typecheck"
+    ],
+    "wave": [
+      "cd src && npm run typecheck"
+    ],
+    "phase": [
+      "cd src && npm test",
+      "cd src && npm run typecheck",
+      "cd src && npm run build"
+    ]
+  },
+  "steps": [
+    {
+      "id": "001-0",
+      "title": "setup-client-boundary",
+      "stepFile": "docs/plan/steps/001-external-api-client/001-0-setup-client-boundary.md",
+      "dependsOn": [],
+      "track": "mixed",
+      "critical": true,
+      "sharedCodeAreas": [
+        "src/models/apiSchemas.ts",
+        "src/models/index.ts",
+        "src/api/ApiClient.ts",
+        "src/api/index.ts",
+        "src/models/__tests__/apiSchemas.test.ts",
+        "src/models/__tests__/apiSchemas.types.test.ts",
+        "src/api/__tests__/ApiClient.configuration.test.ts",
+        "src/api/__tests__/ApiClient.operations.test.ts",
+        "src/api/__tests__/ApiClient.failures.test.ts",
+        "src/api/__tests__/ApiClient.isolation.test.ts"
+      ]
+    },
+    {
+      "id": "001-1",
+      "title": "wire-contracts",
+      "stepFile": "docs/plan/steps/001-external-api-client/001-1-wire-contracts.md",
+      "dependsOn": [
+        "001-0"
+      ],
+      "track": "mixed",
+      "critical": true,
+      "sharedCodeAreas": [
+        "src/models/apiSchemas.ts",
+        "src/models/index.ts",
+        "src/models/schemas.ts#websiteDomainSchema",
+        "src/models/schemas.ts#aiSeoResultSchema",
+        "src/data/content.ts#mixNeeds",
+        "src/data/content.ts#mixSizes"
+      ]
+    },
+    {
+      "id": "001-2",
+      "title": "client-construction",
+      "stepFile": "docs/plan/steps/001-external-api-client/001-2-client-construction.md",
+      "dependsOn": [
+        "001-1"
+      ],
+      "track": "mixed",
+      "critical": true,
+      "sharedCodeAreas": [
+        "src/api/ApiClient.ts",
+        "src/api/index.ts",
+        "src/models/apiSchemas.ts",
+        "src/models/index.ts"
+      ]
+    },
+    {
+      "id": "001-3",
+      "title": "json-operations",
+      "stepFile": "docs/plan/steps/001-external-api-client/001-3-json-operations.md",
+      "dependsOn": [
+        "001-2"
+      ],
+      "track": "mixed",
+      "critical": true,
+      "sharedCodeAreas": [
+        "src/api/ApiClient.ts",
+        "src/api/index.ts",
+        "src/models/apiSchemas.ts",
+        "src/models/schemas.ts#websiteDomainSchema"
+      ]
+    },
+    {
+      "id": "001-4",
+      "title": "failure-classification",
+      "stepFile": "docs/plan/steps/001-external-api-client/001-4-failure-classification.md",
+      "dependsOn": [
+        "001-3"
+      ],
+      "track": "mixed",
+      "critical": true,
+      "sharedCodeAreas": [
+        "src/api/ApiClient.ts",
+        "src/api/index.ts",
+        "src/models/apiSchemas.ts",
+        "src/models/schemas.ts#websiteDomainSchema"
+      ]
+    },
+    {
+      "id": "001-5",
+      "title": "cancellation-isolation",
+      "stepFile": "docs/plan/steps/001-external-api-client/001-5-cancellation-isolation.md",
+      "dependsOn": [
+        "001-4"
+      ],
+      "track": "mixed",
+      "critical": true,
+      "sharedCodeAreas": [
+        "src/api/ApiClient.ts",
+        "src/api/index.ts",
+        "src/models/apiSchemas.ts",
+        "src/models/index.ts",
+        "src/providers/AiSeoProvider.tsx"
+      ]
+    }
+  ],
+  "waves": [
+    [
+      "001-0"
+    ],
+    [
+      "001-1"
+    ],
+    [
+      "001-2"
+    ],
+    [
+      "001-3"
+    ],
+    [
+      "001-4"
+    ],
+    [
+      "001-5"
+    ]
+  ]
+}
